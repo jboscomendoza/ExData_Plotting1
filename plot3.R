@@ -19,12 +19,15 @@ my_data$Day <- strptime(
     format = "%d/%m/%Y %H:%M:%S"
 )
 
+
 plot(
     x = my_data$Day,
-    y = my_data$Global_active_power,
+    y = my_data$Sub_metering_1,
+    type = "n",
     xlab = "",
-    ylab = "Global Active Power (kilowatts)",
-    type = "n"
+    ylab = "Global Active Power (kilowatts)"
 )
-lines(    x = my_data$Day,
-          y = my_data$Global_active_power)
+lines(my_data$Day, my_data$Sub_metering_1, col = "black")
+lines(my_data$Day, my_data$Sub_metering_2, col = "red")
+lines(my_data$Day, my_data$Sub_metering_3, col = "blue")
+
