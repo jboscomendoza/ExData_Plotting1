@@ -1,3 +1,4 @@
+# Download and import data
 download.file(
     "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip",
     "exdata%2Fdata%2Fhousehold_power_consumption.zip")
@@ -13,10 +14,10 @@ my_data <-
         stringsAsFactors = F
     )[66637:69516, ]
 
+# Generate plot grid
 png(filename = "plot4.png", 480, 480)
 par(mfrow = c(2, 2))
-
-# Global active power plot
+## Global active power plot
 plot(
     x = strptime(paste(my_data$Date, my_data$Time), format = "%d/%m/%Y %H:%M:%S"),
     y = my_data$Global_active_power,
@@ -28,8 +29,7 @@ lines(
     x = strptime(paste(my_data$Date, my_data$Time), "%d/%m/%Y %H:%M:%S"),
     y = my_data$Global_active_power
 )
-
-# Voltage plot
+## Voltage plot
 plot(
     x = strptime(paste(my_data$Date, my_data$Time), format = "%d/%m/%Y %H:%M:%S"),
     y = my_data$Voltage,
@@ -41,8 +41,7 @@ lines(
     x = strptime(paste(my_data$Date, my_data$Time), "%d/%m/%Y %H:%M:%S"),
     y = my_data$Voltage
 )
-
-#Three lines plot
+## Sub metering plot
 plot(
     x = strptime(paste(my_data$Date, my_data$Time), "%d/%m/%Y %H:%M:%S"),
     y = my_data$Sub_metering_1,
@@ -71,8 +70,76 @@ legend(
     lty = 1, col = c("black", "red", "blue"),
     bty = "n"
 )
+## Global reactive power plot
+plot(
+    x = strptime(paste(my_data$Date, my_data$Time), format = "%d/%m/%Y %H:%M:%S"),
+    y = my_data$Global_reactive_power,
+    xlab = "datetime",
+    ylab = "Global_reactive_power",
+    type = "n"
+)
+lines(
+    x = strptime(paste(my_data$Date, my_data$Time), "%d/%m/%Y %H:%M:%S"),
+    y = my_data$Global_reactive_power
+)
 
-# Global reactive power plot
+# Export to png
+png(filename = "plot4.png", 480, 480)
+par(mfrow = c(2, 2))
+## Global active power plot
+plot(
+    x = strptime(paste(my_data$Date, my_data$Time), format = "%d/%m/%Y %H:%M:%S"),
+    y = my_data$Global_active_power,
+    xlab = "",
+    ylab = "Global Active Power (kilowatts)",
+    type = "n"
+)
+lines(
+    x = strptime(paste(my_data$Date, my_data$Time), "%d/%m/%Y %H:%M:%S"),
+    y = my_data$Global_active_power
+)
+## Voltage plot
+plot(
+    x = strptime(paste(my_data$Date, my_data$Time), format = "%d/%m/%Y %H:%M:%S"),
+    y = my_data$Voltage,
+    xlab = "datetime",
+    ylab = "Voltage",
+    type = "n"
+)
+lines(
+    x = strptime(paste(my_data$Date, my_data$Time), "%d/%m/%Y %H:%M:%S"),
+    y = my_data$Voltage
+)
+## Sub metering plot
+plot(
+    x = strptime(paste(my_data$Date, my_data$Time), "%d/%m/%Y %H:%M:%S"),
+    y = my_data$Sub_metering_1,
+    type = "n",
+    xlab = "",
+    ylab = "Energy sub metering"
+)
+lines(
+    x = strptime(paste(my_data$Date, my_data$Time), "%d/%m/%Y %H:%M:%S"),
+    y = my_data$Sub_metering_1,
+    col = "black"
+)
+lines(
+    x = strptime(paste(my_data$Date, my_data$Time), "%d/%m/%Y %H:%M:%S"),
+    y = my_data$Sub_metering_2,
+    col = "red"
+)
+lines(
+    x = strptime(paste(my_data$Date, my_data$Time), "%d/%m/%Y %H:%M:%S"),
+    y = my_data$Sub_metering_3,
+    col = "blue"
+)
+legend(
+    x = "topright",
+    legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
+    lty = 1, col = c("black", "red", "blue"),
+    bty = "n"
+)
+## Global reactive power plot
 plot(
     x = strptime(paste(my_data$Date, my_data$Time), format = "%d/%m/%Y %H:%M:%S"),
     y = my_data$Global_reactive_power,
@@ -87,5 +154,5 @@ lines(
 
 dev.off()
 
-# Reset mfrow to default
+# Reset par(mfrow) to default
 par(mfrow = c(1, 1))
